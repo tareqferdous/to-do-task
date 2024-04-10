@@ -1,52 +1,48 @@
 import { useState } from "react";
+export default function Task({ task, handleDeleteTask, handleChangeTask }) {
+  const [isEditing, setIsEditing] = useState(false);
 
-export default function Task({ task, onDeleteTask, onChangeTask }) {
-    const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
 
-    let taskContent;
-
-    if (isEditing) {
-        taskContent = (
-            <>
-                <input
-                    value={task.text}
-                    onChange={(e) => {
-                        onChangeTask({
-                            ...task,
-                            text: e.target.value,
-                        });
-                    }}
-                />
-                <button onClick={() => setIsEditing(false)}>Save</button>
-            </>
-        );
-    } else {
-        taskContent = (
-            <>
-                {task.text}
-                <button onClick={() => setIsEditing(true)}>Edit</button>
-            </>
-        );
-    }
-
-    return (
-        <li>
-            <label>
-                <input
-                    type="checkbox"
-                    checked={task.done}
-                    onChange={(e) => {
-                        onChangeTask({
-                            ...task,
-                            done: e.target.checked,
-                        });
-                    }}
-                />
-
-                {taskContent}
-
-                <button onClick={() => onDeleteTask(task.id)}>Delete</button>
-            </label>
-        </li>
+  if (isEditing) {
+    taskContent = (
+      <>
+        <input
+          value={task.text}
+          onChange={(e) => {
+            handleChangeTask({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        />
+        <button onClick={() => setIsEditing(false)}>Save</button>
+      </>
     );
+  } else {
+    taskContent = (
+      <>
+        {task.text}
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+      </>
+    );
+  }
+  return (
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          checked={task.done}
+          onChange={(e) => {
+            handleChangeTask({
+              ...task,
+              done: e.target.checked,
+            });
+          }}
+        />
+        {taskContent}
+        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+      </label>
+    </li>
+  );
 }

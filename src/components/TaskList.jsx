@@ -1,16 +1,20 @@
 import Task from "./Task";
 
-export default function TaskList({ tasks, onChangeTask, onDeleteTask }) {
-    return (
-        <ul>
-            {tasks.map((task) => (
-                <Task
-                    key={task.id}
-                    task={task}
-                    onChangeTask={onChangeTask}
-                    onDeleteTask={onDeleteTask}
-                />
-            ))}
-        </ul>
-    );
+export default function TaskList({
+  tasks,
+  handleDeleteTask,
+  handleChangeTask,
+}) {
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          task={task}
+          handleDeleteTask={handleDeleteTask}
+          handleChangeTask={handleChangeTask}
+        />
+      ))}
+    </ul>
+  );
 }
